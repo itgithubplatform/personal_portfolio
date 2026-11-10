@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { Github, Linkedin, Mail, Download, ArrowRight, Copy, Check, Terminal, ChevronDown, Cpu } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowRight, Copy, Check, Terminal, ChevronDown, Cpu } from 'lucide-react'
 import { personalInfo } from '@/data/personalInfo'
 import BlueprintGridCanvas from '@/components/ui/BlueprintGridCanvas'
 
@@ -113,7 +113,7 @@ const CountUpStat = ({ targetNum, suffix = '', label, subtext, rawText }: { targ
 }
 
 export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boolean }) {
-  const [copiedCommand, setCopiedCommand] = useState(false)
+  const [copiedProfile, setCopiedProfile] = useState(false)
   const [showToast, setShowToast] = useState(false)
   const [cycleIndex, setCycleIndex] = useState(0)
   const heroRef = useRef(null)
@@ -142,12 +142,17 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
   const heroOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 0.85, 0])
   const scrollCueOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0])
 
-  const copyCommand = () => {
-    navigator.clipboard.writeText('npx benu-gopal-kanjilal')
-    setCopiedCommand(true)
+  const copyProfile = async () => {
+    try {
+      await navigator.clipboard.writeText(personalInfo.social.github)
+      setCopiedProfile(true)
+    } catch {
+      setCopiedProfile(false)
+    }
+
     setShowToast(true)
-    setTimeout(() => {
-      setCopiedCommand(false)
+    window.setTimeout(() => {
+      setCopiedProfile(false)
       setShowToast(false)
     }, 2200)
   }
@@ -172,11 +177,17 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
     }
   }
 
-  const stats = [
-    { label: 'AIML Specialization', targetNum: 9.42, suffix: ' CGPA', subtext: 'The Neotia University' },
-    { label: 'Agentic Systems', targetNum: 15, suffix: '+ Built', subtext: 'Full-Stack & RAG' },
-    { label: 'Hackathons & R&D', targetNum: 5, suffix: '+ Events', subtext: 'Bharatiya Antariksh' },
-    { label: 'Core Focus', rawText: 'Neural Architect', subtext: 'AI & Full-Stack' }
+  const stats: Array<{
+    label: string
+    rawText: string
+    subtext: string
+    targetNum?: number
+    suffix?: string
+  }> = [
+    { label: 'Study Focus', rawText: 'AI / ML', subtext: 'Computer Science' },
+    { label: 'Development', rawText: 'Full-Stack', subtext: 'Web Applications' },
+    { label: 'Interests', rawText: 'Deep Learning', subtext: 'Machine Learning' },
+    { label: 'Education', rawText: 'B.Tech CSE', subtext: 'The Neotia University' }
   ]
 
   const currentLangObj = nameCycleData[cycleIndex]
@@ -204,7 +215,7 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-slate-900/70 backdrop-blur-md text-xs font-mono tracking-widest uppercase text-cyan-300 shadow-sm">
             <Cpu size={14} className="text-cyan-400 animate-pulse" />
-            <span className="font-semibold">AI/ML ENGINEER & FULL-STACK SYSTEM DEVELOPER</span>
+            <span className="font-semibold">CSE STUDENT • AI/ML & FULL-STACK DEVELOPMENT</span>
           </div>
         </motion.div>
 
@@ -274,13 +285,11 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
             </a>
 
             <a
-              href={personalInfo.resume}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#contact"
               className="px-6 py-3.5 rounded-xl font-semibold text-sm flex items-center gap-2 border border-slate-700 bg-slate-900/70 hover:bg-slate-800 text-slate-200 hover:text-white backdrop-blur-md transition-all shadow-sm"
             >
-              <Download size={16} className="text-cyan-400" />
-              <span>Curriculum Vitae</span>
+              <Mail size={16} className="text-cyan-400" />
+              <span>Contact Me</span>
             </a>
 
             {/* Social Channels */}
@@ -313,21 +322,21 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
             </div>
           </motion.div>
 
-          {/* NPX Command Snippet */}
+          {/* GitHub Profile */}
           <motion.div variants={itemVariants} className="w-full max-w-md mb-10 relative">
             <div className="flex items-center justify-between px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-950/80 font-mono text-xs shadow-inner backdrop-blur-xl">
               <div className="flex items-center gap-2 overflow-x-auto py-0.5">
                 <Terminal size={14} className="shrink-0 text-cyan-400" />
                 <span className="text-slate-500">$</span>
-                <span className="font-semibold shrink-0 text-slate-200">npx benu-gopal-kanjilal</span>
+                <span className="font-semibold shrink-0 text-slate-200">github.com/itgithubplatform</span>
                 <span className="w-2 h-4 bg-cyan-400 animate-pulse inline-block shrink-0" />
               </div>
               <button
-                onClick={copyCommand}
-                aria-label="Copy terminal command"
+                onClick={copyProfile}
+                aria-label="Copy GitHub profile link"
                 className="flex items-center gap-1.5 text-[11px] font-mono px-2.5 py-1 rounded-lg border border-slate-800 hover:border-cyan-500/40 text-slate-400 hover:text-cyan-300 transition-all cursor-pointer shrink-0 ml-2"
               >
-                {copiedCommand ? (
+                {copiedProfile ? (
                   <>
                     <Check size={12} className="text-cyan-400" />
                     <span className="text-cyan-400">Copied</span>
@@ -350,7 +359,7 @@ export default function Hero({ isIntroComplete = true }: { isIntroComplete?: boo
                   exit={{ opacity: 0, y: -46 }}
                   className="absolute top-0 left-1/2 -translate-x-1/2 px-3 py-1 rounded-lg border border-cyan-400/40 bg-slate-900 text-cyan-300 font-mono text-xs font-semibold shadow-xl pointer-events-none"
                 >
-                  ✓ Copied to clipboard!
+                  {copiedProfile ? 'GitHub profile copied!' : 'Clipboard unavailable'}
                 </motion.div>
               )}
             </AnimatePresence>

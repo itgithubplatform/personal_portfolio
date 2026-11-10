@@ -23,7 +23,6 @@ export interface PersonalInfo {
     cgpa: string
     location: string
   }
-  resume: string
   profileImage: string
 }
 

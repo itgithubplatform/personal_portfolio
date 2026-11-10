@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, FileText, Send, Sparkles } from 'lucide-react'
+import { Menu, X, Send } from 'lucide-react'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 import StatusToggle from '@/components/ui/StatusToggle'
 import { personalInfo } from '@/data/personalInfo'
@@ -73,9 +73,8 @@ export default function Navbar() {
               <span className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors font-mono tracking-tight">
                 {personalInfo.name}
               </span>
-              <span className="text-[10px] text-cyan-400/80 font-mono tracking-wider flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                AVAILABLE FOR HIRE
+              <span className="text-[10px] text-cyan-400/80 font-mono tracking-wider">
+                CSE STUDENT • AI/ML
               </span>
             </div>
           </a>
@@ -100,22 +99,11 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Action CTAs: Status Toggle, Theme Toggle, Resume & Connect */}
+          {/* Action CTAs */}
           <div className="hidden sm:flex items-center gap-2 xl:gap-2.5">
-            {/* Status bar toggle */}
             <StatusToggle />
 
             <ThemeToggle />
-
-            <a
-              href={personalInfo.resume}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-700/80 text-xs font-medium text-slate-200 hover:text-white transition-all shadow-sm"
-            >
-              <FileText size={14} className="text-cyan-400" />
-              <span>Resume</span>
-            </a>
 
             <a
               href="#contact"
@@ -161,14 +149,6 @@ export default function Navbar() {
                 </a>
               ))}
               <div className="pt-2 border-t border-slate-800 flex gap-2">
-                <a
-                  href={personalInfo.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 py-2.5 rounded-xl border border-slate-700 bg-slate-900 text-center text-xs font-medium text-slate-200"
-                >
-                  View Resume
-                </a>
                 <a
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}

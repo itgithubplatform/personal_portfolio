@@ -31,6 +31,5 @@ export const personalInfo: PersonalInfo = {
     location: 'West Bengal, India'
   },
   
-  resume: '/resume.pdf',
   profileImage: '/profile.webp'
 }

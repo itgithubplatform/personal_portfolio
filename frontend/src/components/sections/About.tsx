@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { GraduationCap, MapPin, Download, ArrowUpRight, Cpu, Code, Brain, ShieldCheck, Sparkles } from 'lucide-react'
+import { GraduationCap, MapPin, ArrowUpRight, Cpu, Code, Brain, ShieldCheck, Sparkles } from 'lucide-react'
 import { aboutData } from '@/data/about'
 import { personalInfo } from '@/data/personalInfo'
 
@@ -227,19 +227,6 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Download Action */}
-              <div className="pt-6">
-                <a
-                  href={personalInfo.resume}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3.5 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-white transition-all shadow-md group"
-                >
-                  <Download size={14} className="text-cyan-400" />
-                  <span>Download Curriculum Vitae (PDF)</span>
-                  <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
-              </div>
             </motion.div>
 
             {/* Interests & Domains */}
